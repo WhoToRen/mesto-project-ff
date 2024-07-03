@@ -1,3 +1,8 @@
+import './pages/index.css'
+import { initialCards } from './scripts/cards.js'
+import { createCard, addCard, deleteCard, likeCard } from './scripts/card.js'
+import { openPopup, closePopup } from './scripts/modal.js'
+
 const cardContainer = document.querySelector("#card-template").content;
 const cardList = document.querySelector('.places__list');
 const popups = document.querySelectorAll('.popup');
@@ -16,43 +21,7 @@ const popupCardImage = document.querySelector('.popup__image');
 const popupCardImageDescription = document.querySelector('.popup__caption');
 
 
-//создание карточки
-
-function createCard({link ='', name=''}, cardContainer, deleteCard, openFullImage, likeCard) {
-	const cardElement = cardContainer
-    .querySelector(".places__item")
-    .cloneNode(true);
-	const cardImage = cardElement.querySelector('.card__image');
-  cardElement.querySelector(".card__title").textContent = name;
-	cardImage.src = link;
-	cardImage.alt = name;
-	cardElement.querySelector('.card__image').addEventListener('click', () => openFullImage(name, link));
-	cardElement.querySelector('.card__delete-button').addEventListener('click', deleteCard);
-	cardElement.querySelector('.card__like-button').addEventListener('click', likeCard);
-	return cardElement;
-}
-
-//добавление, удаление, лайк
-
-function addCard(cardList, cardElement) {
-	cardList.prepend(cardElement);
-}
-
-function deleteCard(evt) {
-  const cardToDelete = evt.target.closest(".places__item");
-  cardToDelete.remove();
-}
-
-function likeCard(evt) {
-  evt.target.classList.toggle('card__like-button_is-active');
-}
-
 //открытие попапов
-
-function openPopup (popupElement) {
-	document.addEventListener('keydown', handleClose);
-	popupElement.classList.add('popup_is-opened');
-}
 
 profileEditButton.addEventListener('click', () => {
 	openPopup(profileEditPopup);
@@ -63,14 +32,6 @@ profileAddButton.addEventListener('click', () => {
 })
 
 //закрытие попапов
-
-function closePopup (popupElement) {
-	popupElement.classList.remove('popup_is-opened');
- }
-
-function handleClose() {
-  console.log('click');
-}
 
 popups.forEach(popup => {
 	popup.addEventListener('mousedown', evt => {
