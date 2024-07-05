@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
-const CopyPlugin = require('copy-webpack-plugin'); // для обработки изображений без require в html
+const CopyPlugin = require('copy-webpack-plugin'); // для обработки изображений без вмешательства в html
 
 module.exports = {
 	entry: { main: './src/index.js' },

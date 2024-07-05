@@ -3,12 +3,16 @@ import { initialCards } from './scripts/cards.js'
 import { createCard, addCard, deleteCard, likeCard } from './scripts/card.js'
 import { openPopup, closePopup } from './scripts/modal.js'
 
+//переменные
+
 const cardContainer = document.querySelector("#card-template").content;
 const cardList = document.querySelector('.places__list');
 const popups = document.querySelectorAll('.popup');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileEditPopup = document.querySelector('.popup_type_edit');
 const profileForm = document.querySelector('.popup__form');
+const profileUserName = document.querySelector('.popup__input_type_name');
+const profileUserDescription = document.querySelector('.popup__input_type_description');
 const profileTitle = document.querySelector('.profile__title');
 const profileDescription = document.querySelector('.profile__description');
 const profileAddButton = document.querySelector('.profile__add-button');
@@ -21,9 +25,12 @@ const popupCardImage = document.querySelector('.popup__image');
 const popupCardImageDescription = document.querySelector('.popup__caption');
 
 
+
 //открытие попапов
 
 profileEditButton.addEventListener('click', () => {
+	profileUserName.value = profileTitle.textContent
+	profileUserDescription.value = profileDescription.textContent
 	openPopup(profileEditPopup);
 })
 
@@ -42,11 +49,6 @@ popups.forEach(popup => {
 			 closePopup(popup);
 		 }
 	 })
-  document.addEventListener('keydown', evt => {
-    if (evt.key === 'Escape') {
-      closePopup(popup);
-    }
-  });
 })
 
 //редактирование профиля
