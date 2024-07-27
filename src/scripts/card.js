@@ -81,8 +81,6 @@ export function deleteCard(cardId) {
       );
       if (cardToDelete) {
         cardToDelete.remove();
-      } else {
-        console.log("Не удалось удалить картчоку");
       }
     })
     .catch((err) => {

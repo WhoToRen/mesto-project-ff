@@ -139,7 +139,7 @@ const handleAddCardSubmit = (evt) => {
 
 newCardForm.addEventListener("submit", handleAddCardSubmit);
 
-// ux загрузки
+// ux-загрузки
 
 function isLoading(loading, button) {
   if (loading) {
@@ -168,7 +168,7 @@ function updateAvatar() {
     .then((updatedUser) => {
       profileImageAvatar.style.backgroundImage = `url(${updatedUser.avatar})`;
       closePopup(popupEditAvatar);
-      clearValidation(popupAvatarForm, validationConfig);
+      clearValidation(popupEditAvatar, validationConfig);
     })
     .catch((err) => {
       console.error("Не удалось изменить аватар:", err);
@@ -181,6 +181,10 @@ function updateAvatar() {
 popupAvatarForm.addEventListener("submit", (event) => {
   event.preventDefault();
   updateAvatar();
+});
+
+profileImageAvatar.addEventListener("click", () => {
+  openPopup(popupEditAvatar);
 });
 
 // промис
@@ -209,7 +213,3 @@ Promise.all([getUserInfo(), getInitialCards()])
   .catch((err) => {
     console.log("Не удалось получить данные:", err);
   });
-
-profileImageAvatar.addEventListener("click", () => {
-  openPopup(popupEditAvatar);
-});
