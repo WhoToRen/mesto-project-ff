@@ -15,6 +15,8 @@ export function createCard(
     .cloneNode(true);
   cardElement.dataset.id = _id;
   const cardImage = cardElement.querySelector(".card__image");
+  const cardLikeButton = cardElement.querySelector(".card__like-button");
+  const cardLikeCount = cardElement.querySelector(".card__like-count");
   cardElement.querySelector(".card__title").textContent = name;
   cardImage.src = link;
   cardImage.alt = name;
@@ -28,47 +30,42 @@ export function createCard(
     cardElement.querySelector(".card__delete-button").style.display = "none";
   }
 
-  cardElement
-    .querySelector(".card__like-button")
-    .addEventListener("click", likeCard(_id, userId));
-  cardElement.querySelector(".card__like-count").textContent = likes.length;
+  cardLikeButton.addEventListener(
+    "click",
+    likeCard(_id, userId, cardLikeCount)
+  );
+  cardLikeCount.textContent = likes.length;
   if (likes.some((like) => like._id === userId)) {
-    cardElement
-      .querySelector(".card__like-button")
-      .classList.add("card__like-button_is-active");
+    cardLikeButton.classList.add("card__like-button_is-active");
   }
   return cardElement;
 }
 
 // лайк
 
-export function likeCard(cardId, userId) {
+export function likeCard(cardId, userId, likeCount) {
   return (evt) => {
     evt.target.classList.toggle("card__like-button_is-active");
     if (evt.target.classList.contains("card__like-button_is-active")) {
       likeCardServer(cardId)
         .then((data) => {
-          evt.target.nextElementSibling.textContent = data.likes.length;
+          likeCount.textContent = data.likes.length;
         })
         .catch((err) => {
           console.log("Не удалось поставить лайк:", err);
+          evt.target.classList.toggle("card__like-button_is-active");
         });
     } else {
       dislikeCardServer(cardId)
         .then((data) => {
-          evt.target.nextElementSibling.textContent = data.likes.length;
+          likeCount.textContent = data.likes.length;
         })
         .catch((err) => {
           console.log("Не удалось убрать лайк:", err);
+          evt.target.classList.toggle("card__like-button_is-active");
         });
     }
   };
-}
-
-//добавление
-
-export function addCard(cardList, cardElement) {
-  cardList.prepend(cardElement);
 }
 
 // удаление

@@ -1,8 +1,12 @@
 import "./pages/index.css";
 import { initialCards } from "./scripts/cards.js";
-import { createCard, addCard, deleteCard, likeCard } from "./scripts/card.js";
+import { createCard, deleteCard, likeCard } from "./scripts/card.js";
 import { openPopup, closePopup } from "./scripts/modal.js";
-import { enableValidation, clearValidation } from "./scripts/validation.js";
+import {
+  enableValidation,
+  clearValidation,
+  validationConfig,
+} from "./scripts/validation.js";
 import {
   getInitialCards,
   getUserInfo,
@@ -16,12 +20,13 @@ import {
 const cardContainer = document.querySelector("#card-template").content;
 const cardList = document.querySelector(".places__list");
 const popups = document.querySelectorAll(".popup");
+
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditPopup = document.querySelector(".popup_type_edit");
 const profileForm = document.querySelector(".popup__form");
-const profileUserName = document.querySelector(".popup__input_type_name");
-const profileUserDescription = document.querySelector(
-  ".popup__input_type_description"
+const profileUserName = profileForm.querySelector("[name='user-name']");
+const profileUserDescription = profileForm.querySelector(
+  "[name='user-description']"
 );
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
@@ -38,19 +43,13 @@ const popupAvatarContent = popupEditAvatar.querySelector(".popup__content");
 const popupAvatarForm = popupAvatarContent.querySelector(".popup__form");
 const profileImageAvatar = document.querySelector(".profile__image");
 
-// конфиг валидации
-
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: ".popup__button_disabled",
-  inputErrorClass: ".popup__input_type_error",
-  errorClass: ".popup__error_visible",
-  errorMessageAttribute: "data-error-message",
-};
-
 enableValidation(validationConfig);
+
+//добавление
+
+function addCard(cardList, cardElement) {
+  cardList.prepend(cardElement);
+}
 
 // открытие попапов профиля
 
@@ -84,8 +83,8 @@ popups.forEach((popup) => {
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault();
   isLoading(true, profileEditPopup.querySelector(".popup__button"));
-  const name = profileForm.elements[0].value;
-  const about = profileForm.elements[1].value;
+  const name = profileUserName.value;
+  const about = profileUserDescription.value;
 
   updateUserInfo(name, about)
     .then((userData) => {

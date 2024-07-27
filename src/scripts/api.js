@@ -20,10 +20,7 @@ const handleResponse = (res) => {
 export const getInitialCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "GET",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
   }).then((res) => handleResponse(res));
 };
 
@@ -32,10 +29,7 @@ export const getInitialCards = () => {
 export const getUserInfo = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "GET",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
   })
     .then((res) => handleResponse(res))
 };
@@ -45,10 +39,7 @@ export const getUserInfo = () => {
 export const updateUserInfo = (name, about) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({ name, about }),
   }).then((res) => handleResponse(res));
 };
@@ -58,10 +49,7 @@ export const updateUserInfo = (name, about) => {
 export const addNewCard = (name, link) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({ name, link }),
   })
     .then((res) => handleResponse(res))
@@ -72,10 +60,7 @@ export const addNewCard = (name, link) => {
 export const changeUserAvatar = (avatarLink) => {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({ avatar: avatarLink }),
   }).then((res) => handleResponse(res));
 };
@@ -85,10 +70,7 @@ export const changeUserAvatar = (avatarLink) => {
 export function likeCardServer(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "PUT",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({ cardId }),
   }).then((res) => handleResponse(res));
 }
@@ -96,10 +78,7 @@ export function likeCardServer(cardId) {
 export function dislikeCardServer(cardId) {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
     body: JSON.stringify({ cardId }),
   }).then((res) => handleResponse(res));
 }
@@ -109,9 +88,6 @@ export function dislikeCardServer(cardId) {
 export const deleteMyCard = (cardId) => {
   return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
     method: "DELETE",
-    headers: {
-      authorization: config.headers.authorization,
-      "Content-Type": "application/json",
-    },
+    headers: config.headers,
   }).then((res) => handleResponse(res));
 };

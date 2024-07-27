@@ -1,3 +1,2 @@
-# Проектная работа Mesto
-git@github.com:WhoToRen/mesto-project-ff.git
-
+Проект "Место" для Яндекс.Практикума
+https://whotoren.github.io/mesto-project-ff/
