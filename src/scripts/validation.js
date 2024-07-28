@@ -1,15 +1,3 @@
-// конфиг валидации
-
-export const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-  errorMessageAttribute: "data-error-message",
-};
-
 function showInputError(
   formElement,
   inputElement,
@@ -74,7 +62,7 @@ function setEventListeners(formElement, validationConfig) {
   });
 }
 
-function toggleButtonState(inputList, buttonElement) {
+function toggleButtonState(inputList, buttonElement, validationConfig) {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validationConfig.inactiveButtonClass);
     buttonElement.disabled = true;
@@ -105,5 +93,5 @@ export function clearValidation(formElement, validationConfig) {
     hideInputError(formElement, inputElement, validationConfig);
   });
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, validationConfig);
 }

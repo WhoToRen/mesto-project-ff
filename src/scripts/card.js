@@ -45,24 +45,25 @@ export function createCard(
 
 export function likeCard(cardId, userId, likeCount) {
   return (evt) => {
-    evt.target.classList.toggle("card__like-button_is-active");
-    if (evt.target.classList.contains("card__like-button_is-active")) {
-      likeCardServer(cardId)
-        .then((data) => {
-          likeCount.textContent = data.likes.length;
-        })
-        .catch((err) => {
-          console.log("Не удалось поставить лайк:", err);
-          evt.target.classList.toggle("card__like-button_is-active");
-        });
-    } else {
+    const likeButton = evt.target;
+    if (likeButton.classList.contains(
+      "card__like-button_is-active")) {
       dislikeCardServer(cardId)
         .then((data) => {
+          likeButton.classList.remove("card__like-button_is-active");
           likeCount.textContent = data.likes.length;
         })
         .catch((err) => {
           console.log("Не удалось убрать лайк:", err);
-          evt.target.classList.toggle("card__like-button_is-active");
+        });
+    } else {
+      likeCardServer(cardId)
+        .then((data) => {
+          likeButton.classList.add("card__like-button_is-active");
+          likeCount.textContent = data.likes.length;
+        })
+        .catch((err) => {
+          console.log("Не удалось поставить лайк:", err);
         });
     }
   };

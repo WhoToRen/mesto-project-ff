@@ -5,7 +5,6 @@ import { openPopup, closePopup } from "./scripts/modal.js";
 import {
   enableValidation,
   clearValidation,
-  validationConfig,
 } from "./scripts/validation.js";
 import {
   getInitialCards,
@@ -15,6 +14,16 @@ import {
   changeUserAvatar,
 } from "./scripts/api.js";
 
+// конфиг валидации
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
 //переменные
 
 const cardContainer = document.querySelector("#card-template").content;
